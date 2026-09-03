@@ -2,7 +2,8 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / 'src'))
 
-from math_utils import add, multiply
+from math_utils import add, multiply, fibonacci
+import pytest
 
 def test_add():
     assert add(2, 3) == 5
@@ -13,3 +14,23 @@ def test_multiply():
     assert multiply(2, 3) == 6
     assert multiply(-1, 5) == -5
     assert multiply(0, 10) == 0
+
+def test_fibonacci():
+    # Base cases
+    assert fibonacci(0) == 0
+    assert fibonacci(1) == 1
+    
+    # Small values
+    assert fibonacci(2) == 1
+    assert fibonacci(3) == 2
+    assert fibonacci(4) == 3
+    assert fibonacci(5) == 5
+    assert fibonacci(6) == 8
+    
+    # Larger value
+    assert fibonacci(10) == 55
+    
+def test_fibonacci_negative():
+    # Edge case: negative input should raise ValueError
+    with pytest.raises(ValueError, match="n must be non-negative"):
+        fibonacci(-1)
